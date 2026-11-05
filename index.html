@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>GuiaShip — Checkout Inteligente</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">G<span>+</span></div>
+        <div><strong>GuiaShip</strong><small>COMMERCE CLOUD</small></div>
+      </div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav>
+        <a class="nav-item active" href="#dashboard"><span class="nav-icon">▦</span> Visão geral</a>
+        <a class="nav-item" href="#catalog"><span class="nav-icon">▤</span> Catálogo</a>
+        <a class="nav-item" href="#checkout"><span class="nav-icon">▣</span> Checkout inteligente</a>
+        <a class="nav-item" href="#integracao"><span class="nav-icon">⌘</span> Integração multicloud</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="cloud-status"><span class="pulse"></span><div><b>Ambiente acadêmico</b><small>Grupo C · SaaS multicloud</small></div></div>
+        <div class="profile"><div class="avatar" id="profileAvatar">GC</div><div><b id="profileName">Grupo C</b><small id="profileSubtitle">Equipe do projeto</small></div><span class="dots">•••</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+      <header class="topbar">
+        <div><div class="eyebrow">ECOMMERCE / LOGÍSTICA</div><h1>Checkout inteligente</h1><p>Frete, benefícios e previsão de entrega em um só lugar.</p></div>
+        <div class="top-actions"><span class="demo-pill"><span></span> Front-end demonstrativo</span><button class="btn btn-ghost" id="openAccount">Entrar / cadastrar</button><button class="btn btn-ghost" id="openAdmin">Acesso admin</button><button class="btn btn-ghost" id="logoutButton" hidden>Sair</button><button class="btn btn-ghost" id="openConfig">⚙ Configurar APIs</button></div>
+      </header>
+
+      <section class="hero-card">
+        <div class="hero-copy"><span class="hero-tag">SAAS MULTICLOUD · GRUPO C</span><h2>Uma compra.<br><em>Três nuvens trabalhando juntas.</em></h2><p>Simule o checkout e acompanhe como cada serviço contribui para uma decisão de compra mais inteligente.</p><a href="#checkout" class="hero-link">Começar simulação <span>↗</span></a></div>
+        <div class="hero-graphic" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div><div class="cloud-core">G<span>+</span></div><div class="node node-aws"><b>AWS</b><small>Frete</small></div><div class="node node-azure"><b>AZURE</b><small>Benefícios</small></div><div class="node node-gcp"><b>GOOGLE CLOUD</b><small>Entrega</small></div></div>
+      </section>
+
+      <section class="section-heading" id="integracao"><div><h2>Serviços conectados</h2><p>Um módulo por provedor de nuvem</p></div><span class="section-note">3 módulos · 3 provedores</span></section>
+      <section class="provider-grid">
+        <article class="provider-card aws"><div class="provider-top"><div class="provider-icon">a</div><span class="provider-label">AWS LAMBDA</span><span class="status-dot" id="dotAws"></span></div><h3>Frete dinâmico</h3><p>Calcula as opções econômica e expressa conforme o pacote e a distância.</p><div class="provider-foot"><span id="statusAws">Aguardando simulação</span><span>↗</span></div></article>
+        <article class="provider-card azure"><div class="provider-top"><div class="provider-icon">A</div><span class="provider-label">AZURE FUNCTIONS</span><span class="status-dot" id="dotAzure"></span></div><h3>Cupom & cashback</h3><p>Aplica regras de desconto de acordo com o total e a categoria do cliente.</p><div class="provider-foot"><span id="statusAzure">Aguardando simulação</span><span>↗</span></div></article>
+        <article class="provider-card gcp"><div class="provider-top"><div class="provider-icon">G</div><span class="provider-label">GOOGLE CLOUD</span><span class="status-dot" id="dotGcp"></span></div><h3>Prazo de entrega</h3><p>Estima a data de entrega e sinaliza o risco logístico da região.</p><div class="provider-foot"><span id="statusGcp">Aguardando simulação</span><span>↗</span></div></article>
+      </section>
+
+      <section class="catalog-section" id="catalog">
+        <div class="section-heading catalog-heading"><div><h2>Catálogo de periféricos</h2><p>Escolha os produtos para montar o pedido e calcular o frete.</p></div><span class="section-note">9 produtos · valores demonstrativos</span></div>
+        <div class="catalog-toolbar">
+          <label class="catalog-search">Buscar produto<input id="productSearch" type="search" placeholder="Ex.: teclado, headset..."></label>
+          <div class="catalog-filters" role="group" aria-label="Filtrar produtos por categoria">
+            <button type="button" class="filter-button active" data-product-filter="todos">Todos</button>
+            <button type="button" class="filter-button" data-product-filter="Teclado">Teclados</button>
+            <button type="button" class="filter-button" data-product-filter="Mouse">Mouses</button>
+            <button type="button" class="filter-button" data-product-filter="Áudio">Áudio</button>
+            <button type="button" class="filter-button" data-product-filter="Vídeo">Vídeo</button>
+            <button type="button" class="filter-button" data-product-filter="Acessório">Acessórios</button>
+          </div>
+        </div>
+        <div class="product-grid" id="productCatalog" aria-live="polite"></div>
+        <p class="catalog-disclaimer">Pesos, dimensões e preços são exemplos para simulação acadêmica. Confira os dados oficiais do produto antes de contratar o frete.</p>
+      </section>
+
+      <section class="work-grid" id="checkout">
+        <div class="panel form-panel">
+          <div class="panel-heading"><div><span class="step-label">01 / ENTRADAS</span><h2>Dados do pedido</h2><p>Preencha os dados para calcular o checkout.</p></div><span class="panel-icon">▤</span></div>
+          <form id="checkoutForm">
+            <div class="form-section-title">Origem, pacote e destino</div>
+            <div class="origin-summary"><span class="step-label">ORIGEM FIXA DA LOJA</span><strong>Fatec Itapira</strong><span>Rua Tereza Lera Paoletti, 570 · Jardim Bela Vista</span><span>Itapira - SP · CEP 13974-080</span></div>
+            <div class="field-grid two">
+              <label>Peso total (kg)<input type="number" id="weight" min="0.01" step="any" placeholder="Calculado pelos produtos" readonly required></label>
+              <label>Comprimento estimado (cm)<input type="number" id="length" min="1" placeholder="Calculado pelos produtos" readonly required></label>
+              <label>Largura estimada (cm)<input type="number" id="width" min="1" placeholder="Calculado pelos produtos" readonly required></label>
+              <label>Altura estimada (cm)<input type="number" id="height" min="1" placeholder="Calculado pelos produtos" readonly required></label>
+              <label>CEP do cliente<input type="text" id="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" maxlength="9" pattern="[0-9]{5}-?[0-9]{3}" required></label>
+            </div>
+            <input type="hidden" id="distance">
+            <div class="destination-summary"><span class="step-label">ROTA RODOVIÁRIA PELO CEP</span><strong id="destinationRegion">Informe o CEP do cliente</strong><span id="distanceEstimate">A distância será calculada pela rota entre os CEPs.</span></div>
+            <p class="package-hint">A rota é calculada por serviços de geocodificação e roteamento. O ponto do CEP é aproximado e pode não corresponder ao endereço exato.</p>
+            <div class="form-section-title separated">Carrinho e cliente</div>
+            <div class="cart-builder">
+              <p class="cart-instruction">Adicione produtos pelo catálogo. O carrinho reúne quantidades e atualiza o total.</p>
+              <div class="cart-items" id="cartItems" aria-live="polite"></div>
+              <div class="cart-total"><span>Total dos produtos</span><strong id="cartTotalDisplay">R$ 0,00</strong></div>
+              <input type="hidden" id="cartTotal" value="0">
+            </div>
+            <div class="customer-summary"><div><span class="step-label">CLIENTE AUTENTICADO</span><strong id="customerName">Entre ou cadastre-se para continuar</strong></div><span id="customerCategoryBadge" class="category-badge">Sem categoria</span></div>
+            <input type="hidden" id="customer" value="novo">
+            <button class="btn btn-primary submit-btn" type="submit" id="calculateBtn"><span>Calcular checkout completo</span><span>→</span></button>
+            <p class="form-hint">Sem endpoints configurados, a demonstração usa cálculos locais identificados como fallback.</p>
+          </form>
+        </div>
+
+        <div class="panel results-panel">
+          <div class="panel-heading"><div><span class="step-label">02 / RESULTADOS</span><h2>Resumo do checkout</h2><p>Resultados consolidados dos três módulos.</p></div><span class="panel-icon">⌁</span></div>
+          <div class="empty-state" id="emptyState"><div class="empty-illustration">↗</div><h3>Seu resumo aparecerá aqui</h3><p>Preencha os dados do pedido e clique em <b>Calcular checkout completo</b> para executar a simulação.</p></div>
+          <div id="results" class="results-list hidden">
+            <div class="result-card"><div class="result-title"><span class="result-symbol aws-symbol">a</span><div><b>Opções de frete</b><small>Processado por AWS Lambda</small></div><span class="latency" id="latAws">— ms</span></div><div class="shipping-options" role="group" aria-label="Selecione a modalidade de frete"><button type="button" class="shipping-choice selected" data-freight-mode="economico" aria-pressed="true"><small>Econômico</small><strong id="economicPrice">—</strong><span>Menor custo</span></button><button type="button" class="shipping-choice recommended" data-freight-mode="expresso" aria-pressed="false"><small>Expresso <i>Recomendado</i></small><strong id="expressPrice">—</strong><span>Entrega prioritária</span></button></div><div class="result-meta" id="metaAws">Resultado demonstrativo</div></div>
+            <div class="result-card"><div class="result-title"><span class="result-symbol azure-symbol">A</span><div><b>Desconto e cashback</b><small>Processado por Azure Functions</small></div><span class="latency" id="latAzure">— ms</span></div><div class="metric-pair"><div><small>Desconto aplicado</small><strong id="discountValue">—</strong></div><div><small>Cashback estimado</small><strong id="cashbackValue">—</strong></div></div><div class="result-meta" id="metaAzure">Resultado demonstrativo</div></div>
+            <div class="result-card"><div class="result-title"><span class="result-symbol gcp-symbol">G</span><div><b>Previsão de entrega</b><small>Processado por Google Cloud Functions</small></div><span class="latency" id="latGcp">— ms</span></div><div class="delivery-result"><div><small>Data provável</small><strong id="deliveryDate">—</strong></div><span class="risk-badge" id="riskBadge">—</span></div><div class="result-meta" id="metaGcp">Resultado demonstrativo</div></div>
+            <div class="order-total"><div><span>Total estimado com frete e desconto</span><small>Conforme a modalidade selecionada</small></div><strong id="finalTotal">—</strong></div>
+          </div>
+          <div id="notice" class="notice hidden" role="status"></div>
+        </div>
+      </section>
+
+      <section class="bottom-strip"><div class="shield">✓</div><div><b>Resiliência por módulo</b><p>Se uma API estiver indisponível, os outros resultados continuam disponíveis e o módulo afetado informa o uso de fallback.</p></div><span class="strip-tag">TRY / CATCH + TIMEOUT</span></section>
+      <footer><span>GuiaShip · Projeto acadêmico do Grupo C</span><span>Arquitetura serverless multicloud</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+    <div class="config-modal account-modal"><div class="modal-heading"><div><span class="step-label">CONTA DO CLIENTE</span><h2 id="accountTitle">Acesse sua conta</h2><p>Seu perfil e sua categoria acompanham esta sessão neste navegador.</p></div><button class="close-btn" id="closeAccount" aria-label="Fechar">×</button></div>
+      <div class="mode-switch"><button type="button" class="mode-btn active" data-account-mode="login">Entrar</button><button type="button" class="mode-btn" data-account-mode="register">Criar conta</button></div>
+      <form id="accountForm">
+        <label id="accountNameField" hidden>Nome completo<input id="accountNameInput" type="text" autocomplete="name" maxlength="100"></label>
+        <label>E-mail<input id="accountEmail" type="email" autocomplete="email" required maxlength="160"></label>
+        <label>Senha<input id="accountPassword" type="password" autocomplete="current-password" minlength="8" required></label>
+        <button class="btn btn-primary submit-btn" type="submit"><span id="accountSubmitLabel">Entrar</span><span>→</span></button>
+      </form>
+      <p class="account-message" id="accountMessage" role="status"></p>
+      <p class="form-hint">Demonstração local: as contas ficam neste navegador e não são sincronizadas entre dispositivos.</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+    <div class="config-modal account-modal"><div class="modal-heading"><div><span class="step-label">ÁREA RESTRITA</span><h2 id="adminTitle">Gestão de clientes</h2><p>Autentique-se como administrador para atribuir uma categoria.</p></div><button class="close-btn" id="closeAdmin" aria-label="Fechar">×</button></div>
+      <form id="adminLoginForm"><label>Código administrativo<input id="adminCodeInput" type="password" autocomplete="current-password" required></label><button class="btn btn-primary submit-btn" type="submit"><span>Autenticar</span><span>→</span></button></form>
+      <div id="adminPanel" class="hidden"><label>Cliente cadastrado<select id="adminCustomerSelect"></select></label><label>Categoria<select id="adminCategorySelect"><option value="novo">Novo cliente</option><option value="regular">Cliente recorrente</option><option value="vip">VIP</option></select></label><button class="btn btn-primary submit-btn" type="button" id="assignCategory"><span>Salvar categoria</span><span>→</span></button></div>
+      <p class="account-message" id="adminMessage" role="status"></p>
+      <p class="form-hint">A autenticação administrativa deste protótipo é apenas demonstrativa. Não use dados reais.</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="configModal" role="dialog" aria-modal="true" aria-labelledby="configTitle">
+    <div class="config-modal"><div class="modal-heading"><div><span class="step-label">CONFIGURAÇÃO</span><h2 id="configTitle">Endpoints das APIs</h2><p>Informe as URLs HTTPS publicadas para habilitar chamadas reais.</p></div><button class="close-btn" id="closeConfig" aria-label="Fechar">×</button></div>
+      <label>URL AWS Lambda — Frete<input id="urlAws" type="url" placeholder="https://..."></label>
+      <label>URL Azure Functions — Cupom e cashback<input id="urlAzure" type="url" placeholder="https://..."></label>
+      <label>URL Google Cloud Functions — Prazo de entrega<input id="urlGcp" type="url" placeholder="https://..."></label>
+      <div class="config-warning"><b>Importante:</b> não coloque chaves privadas ou credenciais neste front-end. As funções devem aceitar JSON via HTTPS e permitir CORS para o domínio publicado.</div>
+      <div class="modal-actions"><button class="btn btn-ghost" id="clearConfig">Limpar URLs</button><button class="btn btn-primary" id="saveConfig">Salvar configurações</button></div>
+      <p class="form-hint">As URLs ficam no navegador durante esta sessão. Para configurar permanentemente, edite <code>config.js</code> antes de publicar.</p>
+    </div>
+  </div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
