@@ -38,9 +38,8 @@ def calcular_desconto_cashback(req: func.HttpRequest) -> func.HttpResponse:
         if categoria not in RATES:
             raise ValueError("categoria_cliente deve ser novo, regular ou vip.")
 
-        # Mesmas regras de localBenefits() em app.js:
-        # novo=3%, regular=7%, vip=12%; desconto somente a partir de R$ 200.
-        percentual = RATES[categoria] if total >= Decimal("200") else Decimal("0")
+        # Desconto aplicado em qualquer valor de compra conforme a categoria.
+        percentual = RATES[categoria]
         desconto = money(total * percentual)
         total_com_desconto = money(total - desconto)
 

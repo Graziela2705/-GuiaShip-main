@@ -8,6 +8,8 @@
   const usersKey = "guiaship.users";
   const cartKey = "guiaship.cart";
   const categoryNames = { novo: "Novo cliente", regular: "Cliente recorrente", vip: "VIP" };
+  const categoryBadgeNames = { novo: "Novo", regular: "Recorrente", vip: "VIP" };
+  const categoryDiscounts = { novo: 3, regular: 7, vip: 12 };
   const storeOrigin = {
   cep: config.originCep || "13974-080",
   address: "Fatec Itapira, Rua Tereza Lera Paoletti, 570 - Jardim Bela Vista, Itapira - SP"
@@ -66,7 +68,9 @@
     $("profileSubtitle").textContent = signedIn ? currentUser.email : "Equipe do projeto";
     $("profileAvatar").textContent = signedIn ? currentUser.name.trim().split(/\s+/).slice(0, 2).map(part => part[0]).join("").toUpperCase() : "GC";
     $("customerName").textContent = signedIn ? currentUser.name + " · " + currentUser.email : "Entre ou cadastre-se para continuar";
-    $("customerCategoryBadge").textContent = signedIn ? categoryNames[currentUser.category] || categoryNames.novo : "Sem categoria";
+    $("customerCategoryBadge").textContent = signedIn
+      ? (categoryBadgeNames[currentUser.category] || categoryBadgeNames.novo) + " · " + (categoryDiscounts[currentUser.category] || categoryDiscounts.novo) + "%"
+      : "Sem categoria";
     $("customer").value = signedIn ? currentUser.category : "novo";
   }
   function renderCart() {
@@ -364,9 +368,7 @@ comprimento_cm: numeric("length"), largura_cm: numeric("width"), altura_cm: nume
     return { economico: Number(base.toFixed(2)), expresso: Number((base * 1.65 + 5).toFixed(2)), _fallback: true };
   }
   function localBenefits(d) {
-    const rates = { novo: 0.03, regular: 0.07, vip: 0.12 };
-    const rate = rates[d.categoria_cliente] ?? 0;
-    const discount = d.total_carrinho >= 200 ? rate : 0;
+    const discount = (categoryDiscounts[d.categoria_cliente] || 0) / 100;
     const afterDiscount = d.total_carrinho * (1 - discount);
     return { desconto_percentual: discount * 100, desconto_valor: d.total_carrinho * discount, cashback: afterDiscount * (d.categoria_cliente === "vip" ? 0.05 : 0.02), total_com_desconto: afterDiscount, _fallback: true };
   }
