@@ -1,1 +1,7 @@
-.venv
+.venv/
+venv/
+__pycache__/
+.vscode/
+.git/
+local.settings.json
+local.settings.*.json
