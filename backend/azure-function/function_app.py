@@ -15,6 +15,11 @@ RATES = {
 }
 
 CENT = Decimal("0.01")
+CORS_HEADERS = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Accept",
+}
 
 
 def money(value: Decimal) -> Decimal:
@@ -23,10 +28,13 @@ def money(value: Decimal) -> Decimal:
 
 @app.route(
     route="calcular-desconto-cashback",
-    methods=["POST"],
+    methods=["POST", "OPTIONS"],
 )
 def calcular_desconto_cashback(req: func.HttpRequest) -> func.HttpResponse:
     """Calcula desconto e cashback conforme as regras locais do GuiaShip."""
+    if req.method == "OPTIONS":
+        return func.HttpResponse(status_code=204, headers=CORS_HEADERS)
+
     try:
         data = req.get_json()
         total = Decimal(str(data.get("total_carrinho", "")))
@@ -58,6 +66,7 @@ def calcular_desconto_cashback(req: func.HttpRequest) -> func.HttpResponse:
             body=json.dumps(response_body, ensure_ascii=False),
             status_code=200,
             mimetype="application/json",
+            headers=CORS_HEADERS,
         )
 
     except (ValueError, TypeError, InvalidOperation, AttributeError) as exc:
@@ -69,4 +78,5 @@ def calcular_desconto_cashback(req: func.HttpRequest) -> func.HttpResponse:
             ),
             status_code=400,
             mimetype="application/json",
+            headers=CORS_HEADERS,
         )
