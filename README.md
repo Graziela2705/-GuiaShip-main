@@ -22,7 +22,26 @@ O catálogo demonstrativo inclui teclado, mouse, headset, mousepad, webcam, micr
 
 ## Executar localmente para desenvolvimento
 
-Abra `index.html` no navegador ou use uma extensão de servidor estático. Os cálculos locais são demonstrativos. A entrega final deve estar hospedada publicamente, não em `localhost`.
+Para testar a Azure Function de verdade, inicie o backend e o front-end:
+
+1. Instale o [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local) e Python.
+2. No terminal, inicie a função:
+   ```powershell
+   py -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   pip install -r backend\azure-function\requirements.txt
+   cd backend\azure-function
+   func start
+   ```
+   Aguarde a mensagem de que `calcular-desconto-cashback` está disponível em `http://localhost:7071`.
+3. Em outro terminal, na raiz do projeto, sirva o front-end:
+   ```powershell
+   py -m http.server 5500
+   ```
+   Abra `http://localhost:5500`. Também é possível abrir `index.html` diretamente: em ambos os casos, a Azure Function aponta automaticamente para `http://localhost:7071/api/calcular-desconto-cashback`.
+4. Execute o checkout e confira o cartão **Desconto e cashback**. Se o host da função não estiver iniciado, o cartão informa como iniciá-lo e mostra o fallback local.
+
+O endpoint local aceita CORS para desenvolvimento; não use essa configuração como política de CORS de produção. A URL HTTPS configurada em `config.js` continua sendo usada quando o site não está em `file://` ou `localhost`.
 
 ## Configurar endpoints reais
 
@@ -32,7 +51,7 @@ Abra `index.html` no navegador ou use uma extensão de servidor estático. Os c�
    - `azureBenefitsUrl`
    - `googleDeliveryUrl`
 3. Cada função deve aceitar `POST` com `Content-Type: application/json` e responder JSON.
-4. Configure CORS em cada provedor para permitir o domínio onde o front-end está hospedado.
+4. Configure CORS em cada provedor para permitir o domínio onde o front-end está hospedado. A Azure Function local já responde ao preflight e permite CORS para facilitar o teste local.
 5. Se preferir, use o botão **Configurar APIs** no front-end para informar as URLs durante a sessão.
 
 ### Payloads enviados pelo front-end

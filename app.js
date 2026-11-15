@@ -1,7 +1,13 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const config = { ...window.API_CONFIG };
-  const endpoints = { aws: config.awsFreightUrl || "", azure: config.azureBenefitsUrl || "", gcp: config.googleDeliveryUrl || "" };
+  const isLocalDevelopment = location.protocol === "file:" || ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
+  const localAzureUrl = "http://localhost:7071/api/calcular-desconto-cashback";
+  const endpoints = {
+    aws: config.awsFreightUrl || "",
+    azure: isLocalDevelopment ? localAzureUrl : config.azureBenefitsUrl || "",
+    gcp: config.googleDeliveryUrl || ""
+  };
   const currency = (n) => Number(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const numeric = (id) => Number($(id).value);
   const validPositive = ["weight","length","width","height","cartTotal"];
@@ -409,7 +415,12 @@ comprimento_cm: numeric("length"), largura_cm: numeric("width"), altura_cm: nume
       }
       return { data, latency: Math.round(performance.now() - start), source: "cloud" };
     } catch (err) {
-      return { data: fallbackFn(), latency: Math.round(performance.now() - start), source: "fallback", reason: err.message || "Falha de comunicação" };
+      const localFunctionUnavailable = key === "azure" && isLocalDevelopment &&
+        (err instanceof TypeError || /failed to fetch|networkerror/i.test(err.message || ""));
+      const reason = localFunctionUnavailable
+        ? "Azure Functions local indisponível. Inicie o host na pasta backend/azure-function com `func start`."
+        : err.message || "Falha de comunicação";
+      return { data: fallbackFn(), latency: Math.round(performance.now() - start), source: "fallback", reason };
     }
   }
   function value(obj, keys, defaultValue = undefined) {
@@ -670,7 +681,14 @@ comprimento_cm: numeric("length"), largura_cm: numeric("width"), altura_cm: nume
     endpoints.azure = $("urlAzure").value.trim();
     endpoints.gcp = $("urlGcp").value.trim();
     for (const [key, url] of Object.entries(endpoints)) {
-      if (url && !/^https:\/\/.+/i.test(url)) { showNotice("As URLs de API devem começar com https://."); return; }
+      if (!url) continue;
+      let parsedUrl;
+      try { parsedUrl = new URL(url); } catch { showNotice("Informe uma URL válida para cada API configurada."); return; }
+      const isLocalHttp = parsedUrl.protocol === "http:" && ["localhost", "127.0.0.1", "[::1]"].includes(parsedUrl.hostname);
+      if (parsedUrl.protocol !== "https:" && !isLocalHttp) {
+        showNotice("Use HTTPS para APIs publicadas. HTTP é permitido apenas para localhost.");
+        return;
+      }
     }
     modal.classList.add("hidden");
     showNotice("URLs atualizadas nesta sessão. Execute novamente a simulação para testar os endpoints.");

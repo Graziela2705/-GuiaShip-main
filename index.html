@@ -135,11 +135,11 @@
   </div>
 
   <div class="modal-backdrop hidden" id="configModal" role="dialog" aria-modal="true" aria-labelledby="configTitle">
-    <div class="config-modal"><div class="modal-heading"><div><span class="step-label">CONFIGURAÇÃO</span><h2 id="configTitle">Endpoints das APIs</h2><p>Informe as URLs HTTPS publicadas para habilitar chamadas reais.</p></div><button class="close-btn" id="closeConfig" aria-label="Fechar">×</button></div>
+    <div class="config-modal"><div class="modal-heading"><div><span class="step-label">CONFIGURAÇÃO</span><h2 id="configTitle">Endpoints das APIs</h2><p>Use HTTPS para APIs publicadas. Em modo local, Azure Functions usa localhost:7071 automaticamente.</p></div><button class="close-btn" id="closeConfig" aria-label="Fechar">×</button></div>
       <label>URL AWS Lambda — Frete<input id="urlAws" type="url" placeholder="https://..."></label>
       <label>URL Azure Functions — Cupom e cashback<input id="urlAzure" type="url" placeholder="https://..."></label>
       <label>URL Google Cloud Functions — Prazo de entrega<input id="urlGcp" type="url" placeholder="https://..."></label>
-      <div class="config-warning"><b>Importante:</b> não coloque chaves privadas ou credenciais neste front-end. As funções devem aceitar JSON via HTTPS e permitir CORS para o domínio publicado.</div>
+      <div class="config-warning"><b>Importante:</b> não coloque chaves privadas ou credenciais neste front-end. As APIs publicadas devem aceitar JSON via HTTPS e permitir CORS para o domínio publicado.</div>
       <div class="modal-actions"><button class="btn btn-ghost" id="clearConfig">Limpar URLs</button><button class="btn btn-primary" id="saveConfig">Salvar configurações</button></div>
       <p class="form-hint">As URLs ficam no navegador durante esta sessão. Para configurar permanentemente, edite <code>config.js</code> antes de publicar.</p>
     </div>
