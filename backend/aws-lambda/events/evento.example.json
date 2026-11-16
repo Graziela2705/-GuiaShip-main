@@ -1,0 +1,12 @@
+{
+  "peso_kg": 2.5,
+  "comprimento_cm": 30,
+  "largura_cm": 20,
+  "altura_cm": 15,
+  "cep_origem": "13974-080",
+  "cep_destino": "13840-000",
+  "origem_latitude": -22.4358,
+  "origem_longitude": -46.8231,
+  "destino_latitude": -22.3689,
+  "destino_longitude": -46.9428
+}

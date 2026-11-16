@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: GuiaShip - função de cálculo de frete (AWS Lambda)
+
+Resources:
+  CalcularFreteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: guiaship-calcular-frete
+      CodeUri: .
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.13
+      MemorySize: 128
+      # A chamada ao OSRM aceita até 8 s; o padrão da Lambda (3 s) cortaria antes.
+      Timeout: 15
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - "*"
+          AllowMethods:
+            - POST
+          AllowHeaders:
+            - Content-Type
+            - Accept
+
+Outputs:
+  FunctionUrl:
+    Description: URL pública da função
+    Value: !GetAtt CalcularFreteFunctionUrl.FunctionUrl

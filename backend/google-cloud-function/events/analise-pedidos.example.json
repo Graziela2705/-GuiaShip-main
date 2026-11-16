@@ -1,0 +1,18 @@
+{
+  "pedidos": [
+    {
+      "valor_produtos": 120.50,
+      "valor_frete": 18.90,
+      "peso": 2.5,
+      "distancia_km": 35.2,
+      "modalidade": "economico"
+    },
+    {
+      "valor_produtos": 340.00,
+      "valor_frete": 42.30,
+      "peso": 6.0,
+      "distancia_km": 820.0,
+      "modalidade": "expresso"
+    }
+  ]
+}
